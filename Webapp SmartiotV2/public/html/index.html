@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPK Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body class="pt-5"> 
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <div style="padding-right: 10px;"><img src="/img/Soil.png(1).png" alt="" width="50">
+            </div>
+            <a class="navbar-brand" href="#">Water malon</a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/water.html">Water Control</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/contronpk.html">NPK contro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/npkcalculate.html">วิเคราะห์ดิน</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- เนื้อหาหลักของเว็บไซต์ -->
+    <div class="container mt-5">
+        <div class="equipment-operation">
+            <div class="header" style="padding: 0;">
+                <span class="logo" style="padding: 30px; border-radius: 0px;"><i
+                        class="bi bi-bar-chart-line-fill"></i></span>
+                <h2>Equipment operation</h2>
+            </div>
+            <table>
+                <tr>
+                    <td>DHT & Soil Moisture</td>
+                    <td>
+                        <span id="dhtStatus" class="status-dot"></span>
+                        <span id="dhtStatusText"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>NPK Sensor</td>
+                    <td>
+                        <span id="npkSensorStatus" class="status"></span>
+                        <span id="npkStatusText"></span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Board Control Pump NPK</td>
+                    <td><span id="pumpNPKStatus" class="status"></span>
+                        <span id="pumStatusText"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Board Control Pump Water</td>
+                    <td>
+                        <span id="pumpWaterStatus" class="status"></span>
+                        <span id="pumWaterStatusText"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="moisture-control">
+            <div class="header" style="padding: 0px;">
+                <span class="logo" style="padding: 30px; border-radius: 0px;"><img src="/img/Soil.png.png" alt=""
+                        width="35px"></span>
+                <h2>Moisture Control</h2>
+            </div>
+            <table>
+                <tr>
+                    <td>Moisture</td>
+                    <td id="moistureValue">99</td>
+                    <td>%</td>
+                </tr>
+                <tr>
+                    <td>Humidity</td>
+                    <td id="humidityValue">99</td>
+                    <td>%</td>
+                </tr>
+                <tr>
+                    <td>Temperature</td>
+                    <td id="temperatureValue">99</td>
+                    <td>°C</td>
+                </tr>
+                <tr>
+                    <td>Fahrenheit</td>
+                    <td id="fahrenheitValue">99</td>
+                    <td>°F</td>
+                </tr>
+            </table>
+            <div class="control-row">
+                <div class="auto-switch">
+                    
+                    <label class="switch" id="moistureAutoSwitch">
+                       
+                        
+                    </label>
+                </div>
+                <button class="control-panel" id="moistureControlPanel" onclick="window.location.href='/html/water.html'">Control Panel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="moisture-control">
+            <div class="header" style="padding: 0px;">
+                <span class="logo" style="padding: 30px; border-radius: 0px;"><img src="/img/Soil.png(2).png"
+                        alt="" width="35px"></span>
+                <h2>NPK Control</h2>
+            </div>
+            <table>
+                <tr>
+                    <td>Nitrogen</td>
+                    <td> <span id="nitrogenValue"></span></td>
+                    <td>ppm</td>
+                </tr>
+                <tr>
+                    <td>Phosphorus</td>
+                    <td><span id="phosphorusValue"></span></td>
+                    <td>ppm</td>
+                </tr>
+                <tr>
+                    <td>Potassium</td>
+                    <td id="potassiumValue">99</td>
+                    <td>ppm</td>
+                </tr>
+            </table>
+            <div class="control-row">
+                <div class="auto-switch">
+                    <span>Auto</span>
+                    <label class="switch">
+                        <input type="checkbox" id="npkAutoSwitch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <button class="control-panel" id="moistureControlPanel" onclick="window.location.href='/html/contronpk.html'">Control Panel</button>            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/javascript/database.js"></script>
+
+</body>
+
+</html>

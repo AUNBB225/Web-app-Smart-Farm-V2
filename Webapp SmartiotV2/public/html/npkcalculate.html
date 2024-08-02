@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPK Control</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/npk.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+    integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
+      <div class="navbar-logo-brand">
+        <img src="/img/Soil.png(1).png" alt="Soil icon" width="60">
+        <a class="navbar-brand" href="#">Water malon</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="/html/index.html">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/html/water.html">Water Control</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/html/contronpk.html">NPK contro</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/html/npkcalculate.html">วิเคราะห์ดิน</a>
+          </li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="moisture-header">
+    <img src="/img/Soil.png.png" alt="Soil icon" width="50">
+    <h1>Moisture Control</h1>
+  </div>
+
+
+  <div class="container mt-4">
+
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="plantSelect">เลือกพืชที่ปลูก</label>
+          <select class="form-control" id="plantSelect">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="soilSelect">เลือกดินที่ปลูก</label>
+          <select class="form-control" id="soilSelect">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="plantsPerRai">จำนวนต้นต่อไร่:</label>
+          <input type="number" id="plantsPerRai"  class="form-control" name="plantsPerRai" value="400">
+      </div>
+        <h5 class="mt-4">ค่าที่วัดได้จากเซนเซอร์</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <!-- Placeholder for Moisture graph -->
+            <div class="graph-placeholder">Nitrogen</div>
+          </div>
+          <div class="col-md-4">
+            <!-- Placeholder for Humidity graph -->
+            <div class="graph-placeholder">Phosphorus</div>
+          </div>
+          <div class="col-md-4">
+            <!-- Placeholder for Temperature graph -->
+            <div class="graph-placeholder">Photassium</div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="sensor-reading">
+            <span class="sensor-label">Nitrogen</span>
+            <span class="sensor-value"><span id="NitrogenValue">0</span></span>
+            <span class="sensor-unit">ppm</span>
+          </div>
+          <div class="sensor-reading">
+            <span class="sensor-label white-background">Phosphorus</span>
+            <span class="sensor-value white-background"><span id="phosphorusValue">0</span></span>
+            <span class="sensor-unit white-background">ppm</span>
+          </div>
+          <div class="sensor-reading">
+            <span class="sensor-label">Photassium</span>
+            <span class="sensor-value"><span id="potassiumValue">0</span></span>
+            <span class="sensor-unit">ppm</span>
+          </div>
+        </div>
+
+        <h5 class="mt-4">ผลวิเคราะห์ค่าปริมาณแร่ธาตุในดิน</h5>
+        <div class="form-group">
+          <div class="nutrient-form">
+            <div class="form-group">
+              <label for="nitrogen">Nitrogen</label>
+              <input type="text" id="nitrogen" name="nitrogen" disabled="disabled">
+              <span class="unit">กก./ไร่</span>
+            </div>
+
+            <div class="form-group">
+              <label for="phosphorus">Phosphorus</label>
+              <input type="text" id="phosphorus" name="phosphorus" disabled="disabled">
+              <span class="unit">กก./ไร่</span>
+            </div>
+
+            <div class="form-group">
+              <label for="potassium">Potassium</label>
+              <input type="text" id="potassium" name="potassium" disabled="disabled">
+              <span class="unit">กก./ไร่</span>
+            </div>
+          </div>
+
+          <div class="fertilizer-form">
+            <h2>เลือกสูตรปุ๋ยที่ต้องการใช้</h2>
+            <p>ระบุเปอร์เซ็นต์ของแม่ปุ๋ยที่ต้องการใช้ แต่ถ้าไม่ทราบสามารถเลือกปุ๋ยสำเร็จรูปที่มีได้</p>
+
+            <div class="form-group">
+              <label for="formula1">สูตรที่ 1:</label>
+              <div class="select-wrapper">
+                <select id="formula1" name="formula1">
+                  
+                </select>
+              </div>
+            </div>
+
+
+            <div class="fertilizer-form">
+              <h2>กรอกสูตรปุ๋ยที่ต้องการ</h2>
+              <p>ใส่เปอร์เซ็นต์ของธาตุอาหารในสูตรปุ๋ย หากไม่ทราบสามารถเลือกปุ๋ยสำเร็จรูปที่มีได้</p>
+
+              <div class="formula-section">
+                <h3>สูตรที่ 1</h3>
+                <div class="nutrient-input">
+                  <label for="nitrogen1">Nitrogen</label>
+                  <input type="text" id="nitrogen1" name="nitrogen1">
+                  <span class="unit">%</span>
+                </div>
+                <div class="nutrient-input">
+                  <label for="phosphorus1">Phosphorus</label>
+                  <input type="text" id="phosphorus1" name="phosphorus1">
+                  <span class="unit">%</span>
+                </div>
+                <div class="nutrient-input">
+                  <label for="potassium1">Potassium</label>
+                  <input type="text" id="potassium1" name="potassium1">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+
+              <button class="calculate-button">คำนวณ</button>
+            </div>
+
+
+
+            <div class="analysis-result">
+              <h2>ผลการวิเคราะห์การใช้ปุ๋ย</h2>
+
+              <h3>ปริมาณธาตุอาหารที่พืชต้องการ</h3>
+              <div class="nutrient-result">
+                <div class="nutrient-item">
+                  <span class="nutrient-name">Nitrogen</span>
+                  <span class="nutrient-value" id="NitrogenValue2">0</span>
+                  <span>กก./ไร่</span>
+                </div>
+                <div class="nutrient-item">
+                  <span class="nutrient-name">Phosphorus</span>
+                  <span class="nutrient-value" id="phosphorusValue2">0</span>
+                  <span>กก./ไร่</span>
+                </div>
+                <div class="nutrient-item">
+                  <span class="nutrient-name">Potassium</span>
+                  <span class="nutrient-value" id="potassiumValue2">0</span>
+                  <span>กก./ไร่</span>
+                </div>
+              </div>
+
+              <h2>ปริมาณปุ๋ยที่ต้องใช้</h2>
+              <div class="fertilizer-amount">
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="module" src="/javascript/dataplant.js"></script>
+
+</body>
+
+</html>

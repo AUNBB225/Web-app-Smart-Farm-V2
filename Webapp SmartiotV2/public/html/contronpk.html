@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPK Control</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/npk.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
+    <script type="module" src="/javascript/settimNPK.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-logo-brand">
+                <img src="/img/Soil.png(1).png" alt="Soil icon" width="60">
+                <a class="navbar-brand" href="#">Water malon</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/water.html">Water Control</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/contronpk.html">NPK contro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/html/npkcalculate.html">วิเคราะห์ดิน</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="moisture-header">
+        <img src="/img/Soil.png.png" alt="Soil icon" width="50">
+        <h1>NPK Control</h1>
+    </div>
+
+
+    <div class="container mt-4">
+        
+        <div class="card">
+
+            <div class="card-header">
+                <h5 class="card-title">เพิ่มตารางเวลา</h5>
+            </div>
+            <div class="card-body">
+                <form id="schedule-form">
+                    <div class="mb-3">
+                        <label for="date-input" class="form-label">วันที่</label>
+                        <input type="date" class="form-control" id="date-input">
+                    </div>
+                    <div class="mb-3">
+                        <label for="time-input" class="form-label">เวลา</label>
+                        <input type="time" class="form-control" id="time-input">
+                    </div>
+                    <div class="mb-3">
+                        <label for="duration-input" class="form-label">ระยะเวลา (นาที)</label>
+                        <input type="number" class="form-control" id="duration-input" min="1">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="save-button">บันทึก</button>
+                </form>
+            </div>
+
+            <div class="card-body">
+                <div class="control-row">
+                    <span>Auto Time</span>
+                    <label class="switch">
+                      <input type="checkbox" checked id="AutoTimenpk">
+                      <span class="slider round" ></span>
+                    </label>
+                  </div>
+                  <div class="control-row">
+                    <span>ปั๊มปุ๋ย 1</span>
+                    <label class="switch">
+                      <input type="checkbox" checked id="pumnpk1">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+
+                  <div class="control-row">
+                    <span>ปั๊มปุ๋ย 2</span>
+                    <label class="switch">
+                      <input type="checkbox" checked id="pumnpk2">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                <div class="mt-4">
+                    <div id="watering-schedule-root"></div>
+                    <div class="form-group">
+                        <div class="schedule-table">
+                            <div class="table-header">
+                                <h2>ตารางเวลา</h2>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>วันที่</th>
+                                        <th>เวลา</th>
+                                        <th>ระยะเวลา</th>
+                                        <th>การจัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedule-table-body">
+                                    <!-- ข้อมูลจะถูกเพิ่มที่นี่โดย JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="/javascript/contronpk.js"></script>
+    
+
+</body>
+
+</html>

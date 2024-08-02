@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moisture Control</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/water.css">
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
+        <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+        <script type="module" src="https://code.jscharting.com/latest/modules/types.js"></script>
+        <script type="text/javascript" src="https://code.jscharting.com/latest/modules/types.js"></script>
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-logo-brand">
+                <img src="/img/Soil.png(1).png" alt="Soil icon" width="60">
+                <a class="navbar-brand" href="#">Water malon</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/html/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/html/water.html">Water Control</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/html/contronpk.html">NPK contro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/html/npkcalculate.html">วิเคราะห์ดิน</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="moisture-header">
+        <img src="/img/Soil.png.png" alt="Soil icon" width="50">
+        <h1>Moisture Control</h1>
+    </div>
+
+
+    <div class="container mt-4">
+        
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="plantSelect">เลือกพืชที่ปลูก</label>
+                    <select class="form-control" id="plantSelect">
+                    </select>
+                </div>
+
+                <h5 class="mt-4">ค่าที่วัดได้จากเซนเซอร์</h5>
+                <div class="row">
+                    <div class="col-md-4" style="width: 400px;height: 320px;">
+                        <!-- Placeholder for Moisture graph -->
+                        <div id="chartDiv" style="max-width: 610px;height: 340px;margin: 0px auto;" ></div>
+                    </div>
+                    <div class="col-md-4"  style="width: 400px;height: 320px;" >
+                        <!-- Placeholder for Humidity graph -->
+                        <div id="chartDiv2" style="max-width: 610px;height: 340px;margin: 0px auto;" ></div>
+                        
+                    </div>
+                    <div class="col-md-4"  style="width: 400px;height: 320px;" >
+                      <!-- Placeholder for Humidity graph -->
+                      <div id="chartDiv3" style="max-width: 610px;height: 340px;margin: 0px auto;" ></div>
+                      
+                  </div>
+                </div>
+
+
+<div class="mt-4">
+  <div class="sensor-reading">
+    <span class="sensor-label">Moisture</span>
+    <span class="sensor-value"><span id="moistureValue">99</span></span>
+    <span class="sensor-unit">%</span>
+  </div>
+<div class="sensor-reading">
+  <span class="sensor-label white-background">Humidity</span>
+  <span class="sensor-value white-background"><span id="humidityValue">99</span></span>
+  <span class="sensor-unit white-background">%</span>
+</div>
+  <div class="sensor-reading">
+    <span class="sensor-label">Temperature</span>
+    <span class="sensor-value"><span id="temperatureValue">99</span></span>
+    <span class="sensor-unit">°C</span>
+  </div>
+<div class="sensor-reading">
+  <span class="sensor-label white-background">Fahrenheit</span>
+  <span class="sensor-value white-background"><span id="fahrenheitValue">99</span></span>
+  <span class="sensor-unit white-background">°F</span>
+</div>
+</div>
+
+                <h5 class="mt-4">ความชื้นที่พืชต้องการ</h5>
+                <p class="small">ในกรณีที่ไม่มีพืชให้เลือกด้านบน ท่านสามารถกรอกค่าความชื้นที่พืชต้องการได้เองนะ</p>
+                <div class="form-group">
+                    <label for="setM">Moisture</label>
+                    <input type="text" class="form-control" id="setM">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="card-body">
+  <div class="control-panel mt-4">
+    <div class="header">
+      <span class="icon-gear">⚙️</span>
+      <h2>การควบคุม</h2>
+    </div>
+    <div class="control-row">
+      <span>Auto</span>
+      <label class="switch">
+        <input type="checkbox" checked id="switchAuto">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span>Auto Time</span>
+      <label class="switch">
+        <input type="checkbox" checked id="switchAutoTime">
+        <span class="slider round" ></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span>P 1</span>
+      <label class="switch">
+        <input type="checkbox" checked id="switchPUM1">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="control-row">
+      <span>P 2</span>
+      <label class="switch">
+        <input type="checkbox" checked id="switchPUM2">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+</div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+
+    </div>
+  </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">ตารางการตั้งเวลารดน้ำ</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>วัน</th>
+              <th>สถานะ</th>
+              <th>การตั้งค่า</th>
+            </tr>
+          </thead>
+          <tbody id="watering-schedule">
+            <!-- ข้อมูลจะถูกเพิ่มด้วย JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Modal สำหรับการตั้งค่า -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">ตั้งค่าการรดน้ำ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="wateringSettingsForm">
+
+              <div class="form-group">
+                <div>
+                  <label for="watering-enabled">เปิด-ปิดใช้งานการตั้งเวลารดน้ำ</label>
+
+                </div>
+                
+              <label class="switch">
+                <input type="checkbox" checked id="watering-enabled">
+                <span class="slider round"></span>
+              </label>
+              </div>
+
+              <div id="times-container">
+                <!-- เวลาและระยะเวลาจะถูกเพิ่มด้วย JavaScript -->
+              </div>
+             
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            <button type="button" class="btn btn-primary" onclick="window.saveSettings()">บันทึก</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+   
+    
+    
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="/javascript/water.js"></script>
+    <script type="module" src="/javascript/chart.js"></script>    
+</body>
+</html>
